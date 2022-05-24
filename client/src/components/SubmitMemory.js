@@ -1,31 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactFileBase64 from "react-file-base64";
 
 import { Form, Button } from "react-bootstrap";
 
+import * as api from "../axios/index.js";
+
 const SubmitMemory = () => {
-  return (
+  const [memoryData, setMemoryData] = useState({
+    title: "",
+    creator: "" ,
+    content: "",
+    image: " ",
+  });
+
+  return ( 
     <>
-      <Form >
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          
+          api.createMemory(memoryData)
+        }}
+      >
         <Form.Group>
           <h1>Bir Anı Yarat</h1>
         </Form.Group>
         <Form.Group>
           <Form.Label>Başlık</Form.Label>
-          <Form.Control name="title" type="text"></Form.Control>
+          <Form.Control
+            name="title"
+            type="text"
+            onChange={(e) =>
+              setMemoryData({ ...memoryData, title: e.target.value })
+            }
+          ></Form.Control>
         </Form.Group>
         <Form.Group>
           <Form.Label>Yazar</Form.Label>
-          <Form.Control name="author" type="text"></Form.Control>
+          <Form.Control
+            name="author"
+            type="text"
+            onChange={(e) =>
+              setMemoryData({ ...memoryData, creator: e.target.value })
+            }
+          ></Form.Control>
         </Form.Group>
         <Form.Group>
           <Form.Label>Anınız</Form.Label>
-          <Form.Control name="content" type="text" as="textarea" rows={3}></Form.Control>
-        </Form.Group>
+          <Form.Control
+            name="content"
+            type="text"
+            as="textarea"
+            rows={3}
+            onChange={(e) =>
+              setMemoryData({ ...memoryData, content: e.target.value })
+            }
+          ></Form.Control>
+        </Form.Group> 
         <Form.Group>
-            <ReactFileBase64 type="file" multiple={false} onDone={() => {}} />
+          <ReactFileBase64 type="file" multiple={false} onDone={({base64}) => {
+            setMemoryData({...memoryData, image: base64})
+          }} />
         </Form.Group>
-        <Button style={{display:"block"}} type="submit">Gönder</Button>
+        <Button style={{ display: "block" }} type="submit">
+          Gönder
+        </Button>
       </Form>
     </>
   );

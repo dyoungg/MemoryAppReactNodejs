@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Memory = () => {
+const Memory = ({memory}) => {
   return (
-    <div></div>
+    <h1>{memory.title}</h1>
   )
 }
 

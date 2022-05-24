@@ -20,7 +20,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll" className="justify-content-end">
             <Nav>
-              <LinkContainer to="/createf">
+              <LinkContainer to="/create">
                 <Nav.Link>
                   <Button variant="outline-info">Bir Anı Paylaş</Button>
                 </Nav.Link>
